@@ -1,0 +1,47 @@
+﻿@model Pizzaria.Models.Sabor
+
+@{
+    ViewData["Title"] = "Atualizar";
+}
+
+<h1>Atualizar</h1>
+
+<h4>Sabores</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Atualizar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div>
+                <img class="img-thumbnail" src="@Model.ImagemURL" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataCadastro" class="control-label"></label>
+                <input asp-for="DataCadastro" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DataAlteracao" class="control-label"></label>
+                <input asp-for="DataAlteracao" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzasSabores" class="control-label"></label>
+                <input asp-for="PizzasSabores" class="form-control" />
+                <span asp-validation-for="PizzasSabores" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Lista de Atores</a>
+</div>
+

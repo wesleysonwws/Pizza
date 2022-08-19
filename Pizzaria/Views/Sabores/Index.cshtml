@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Sabor>
+
+@{
+    ViewData["Title"] = "Sabor";
+}
+
+<partial name="_NovoItem" model="nameof(Sabor)" />
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="col-12 my-2">
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Buscar pizza... " />
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ações</th>
+                    <th>@Html.DisplayNameFor(model => model.ImagemURL)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th>@Html.DisplayNameFor(model => model.DataCadastro)</th>
+                    <th>@Html.DisplayNameFor(model => model.DataAlteracao)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sabor in Model)
+                {
+
+                    <tr>
+                        <td>
+                            <div class="d-flex flex-column">
+                                <a class="btn btn-success" asp-action="Atualizar" asp-route-id="@sabor.Id">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Editar
+                                </a>
+
+                                <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@sabor.Id">
+                                    <i class="fa-solid fa-eye"></i>
+                                    Ver
+                                </a>
+
+                                <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-id="@sabor.Id">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    Excluir
+                                </a>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <img src="@sabor.ImagemURL" style="max-width:100px" alt="@sabor.Nome">
+                        </td>
+                        <td class="align-middle">@sabor.Nome</td>
+                        <td class="align-middle">@sabor.DataCadastro</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
