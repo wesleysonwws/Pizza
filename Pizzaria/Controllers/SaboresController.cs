@@ -35,6 +35,7 @@ namespace Pizzaria.Controllers
             return View(result);
 
         }
+
         [HttpPost]
         public IActionResult Criar(int id)
         {

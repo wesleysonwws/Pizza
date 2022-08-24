@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Pizzaria.Models;
 using Pizzaria.Models.ViewModels.ResponseDTO;
 using Pizzaria_G11.Data;
+using PizzariaAtv.Models.ViewModels.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,37 +20,81 @@ namespace Pizzaria.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
-            return View(_context.Pizzas);
+            var res = _context.Pizzas;
+            return View(res);
         }
 
         [HttpPost]
-        public IActionResult Atualizar(int? id)
+        public IActionResult Atualizar(int id)
         {
-            if (id == null)
-                return NotFound();
-
-            var result = _context.Pizzas.FirstOrDefault(p => p.Id == id);
-
-            if (result == null)
-                return View();
-
-            return View(result);
-
+            var result = _context.Pizzas.Include(x => x.PizzasSabores).ThenInclude(x => x.SaborId)
+                                        .FirstOrDefault(x => x.Id == id);
+            if (result == null) return View("NotFound");
+            var resp = new PostPizzaDTO()
+            {
+                Nome = result.Nome,
+                Descricao = result.Descricao,
+                Preco = result.Preco,
+                ImagemURL = result.ImagemURL,
+                SaboresId = result.PizzasSabores.Select(x => x.SaborId).ToList()
+            };
+            DadosDropDow();
+            return View(resp);
         }
         [HttpPost]
-        public IActionResult Criar(int id)
+        public IActionResult Atualizar(int id, PostPizzaDTO pizzaDTO)
         {
-                var resultado = _context.Pizzas
-                .Include(prod => prod.PizzasSabores)
-                .ThenInclude(t => t.Tamanho)
-                .FirstOrDefault(pizzaid => pizzaid.Id == id);
+            var result = _context.Pizzas.FirstOrDefault(x => x.Id == id);
+            if (!ModelState.IsValid) return View(result);
+            result.AtualizarDados(pizzaDTO.Nome, pizzaDTO.Descricao, pizzaDTO.Preco, pizzaDTO.ImagemURL);
+            _context.Update(result);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        public void DadosDropDow()
+        {
+            var resp = new PostPizzaDropDown()
+            {
+                Sabores = _context.Sabores.OrderBy(x => x.Nome).ToList(),
+                Tamanhos = _context.Tamanhos.OrderBy(x => x.Nome).ToList()
+            };
 
-                if (resultado == null)
-                return View("NotFound");
+            ViewBag.Sabores = new SelectList(resp.Sabores, "Id", "Nome");
+            ViewBag.Tamanhos = new SelectList(resp.Tamanhos, "Id", "Nome");
 
-            return View(resultado);
+        }
+        public IActionResult Criar()
+        {
+            DadosDropDow();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Criar(PostPizzaDTO pizzaDTO)
+        {
+            Pizza Pizza = new Pizza
+               (
+                   pizzaDTO.Nome,
+                   pizzaDTO.Descricao,
+                   pizzaDTO.Preco,
+                   pizzaDTO.ImagemURL,
+                   pizzaDTO.TamanhoId
+               );
+
+            _context.Pizzas.Add(Pizza);
+            _context.SaveChanges();
+
+            foreach (var saborId in pizzaDTO.SaboresId)
+            {
+                var novosabor = new PizzasSabores(Pizza.Id,saborId);
+                _context.PizzasSabores.Add(novosabor);
+                _context.SaveChanges();
+            }
+            
+            return RedirectToAction(nameof(Index));
+         
         }
        
         public IActionResult Deletar(int id)

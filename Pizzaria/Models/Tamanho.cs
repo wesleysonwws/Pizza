@@ -15,6 +15,7 @@ namespace Pizzaria.Models
                 DataCadastro = DataCadastro;
                 DataAlteracao = DataCadastro;
                 Nome = nome;
+               
             }
 
             public int Id { get; private set; }
@@ -22,9 +23,10 @@ namespace Pizzaria.Models
             public DateTime DataAlteracao { get; private set; }
             [Display(Name = "Tamanho")]
             public string Nome { get; private set; }
+         
 
-            #region relacionamento
-            public List<Pizza> Pizzas { get; private set; }
+        #region relacionamento
+        public List<Pizza> Pizzas { get; private set; }
             #endregion
 
             public void AtualizarDados(string nome)

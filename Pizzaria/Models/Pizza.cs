@@ -9,7 +9,7 @@ namespace Pizzaria.Models
 {
     public class Pizza : IEnterface
     {
-        public Pizza(string nome, string descricao, decimal preco, string imagemURL)
+        public Pizza(string nome, string descricao, decimal preco, string imagemURL, int tamanhoId)
         {
             DataCadastro = DateTime.Now;
             DataAlteracao = DataCadastro;
@@ -17,6 +17,7 @@ namespace Pizzaria.Models
             Descricao = descricao;
             Preco = preco;
             ImagemURL = imagemURL;
+            TamanhoId = tamanhoId; 
         }
         public int Id { get; private set; }
         public DateTime DataCadastro { get; private set; }
@@ -28,13 +29,14 @@ namespace Pizzaria.Models
         [Display(Name = "Imagem")]
         public string ImagemURL { get; private set; }
         [Display(Name = "Preço")]
-        public decimal Preco { get; private set; }
-        public Tamanho Tamanho { get; private set; }
+        public decimal Preco { get;  set; }
+        public int TamanhoId { get; set; }
+        public Tamanho Tamanho { get; set; }
         #region Relacionamento
-        public List<PizzasSabores> PizzasSabores { get; private set; }
+        public List<PizzasSabores> PizzasSabores { get;  set; }
         #endregion
 
-        public void AtualizarDados(string nome, string descricao, string imagemURL)
+        public void AtualizarDados(string nome, string descricao, decimal preco, string imagemURL)
         {
             Nome = nome;
             Descricao = descricao;

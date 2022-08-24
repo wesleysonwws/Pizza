@@ -5806,11 +5806,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizzaria\\Pizzaria\\Pizzaria.csproj",
+      "projectUniqueName": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizza\\pizza\\Pizzaria\\Pizzaria.csproj",
       "projectName": "Pizzaria",
-      "projectPath": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizzaria\\Pizzaria\\Pizzaria.csproj",
+      "projectPath": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizza\\pizza\\Pizzaria\\Pizzaria.csproj",
       "packagesPath": "C:\\Users\\wesleyson.procha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizzaria\\Pizzaria\\obj\\",
+      "outputPath": "C:\\Users\\wesleyson.procha\\source\\repos\\Pizza\\pizza\\Pizzaria\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -5876,6 +5876,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.25, 3.1.25]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
