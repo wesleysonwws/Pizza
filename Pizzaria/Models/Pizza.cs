@@ -9,6 +9,14 @@ namespace Pizzaria.Models
 {
     public class Pizza : IEnterface
     {
+        public Pizza(string nome, decimal preco, string imagemURL, int tamanhoId)
+        {
+            Nome = nome;
+            Preco = preco;
+            ImagemURL = imagemURL;
+            TamanhoId = tamanhoId;
+        }
+
         public Pizza(string nome, string descricao, decimal preco, string imagemURL, int tamanhoId)
         {
             DataCadastro = DateTime.Now;

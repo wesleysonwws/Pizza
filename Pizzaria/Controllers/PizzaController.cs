@@ -84,7 +84,7 @@ namespace Pizzaria.Controllers
                );
 
             _context.Pizzas.Add(Pizza);
-            _context.SaveChanges();
+           _context.SaveChanges();
 
             foreach (var saborId in pizzaDTO.SaboresId)
             {
